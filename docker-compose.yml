@@ -1,0 +1,40 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: sqlite:////storage/linguadub.db
+      STORAGE_DIR: /storage
+      CORS_ORIGINS: http://localhost:5173,http://127.0.0.1:5173
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-500}
+      MAX_VIDEO_MINUTES: ${MAX_VIDEO_MINUTES:-10}
+      STT_PROVIDER: ${STT_PROVIDER:-faster-whisper}
+      WHISPER_MODEL: ${WHISPER_MODEL:-base}
+      WHISPER_DEVICE: ${WHISPER_DEVICE:-cpu}
+      TRANSLATION_PROVIDER: ${TRANSLATION_PROVIDER:-google}
+      TTS_PROVIDER: ${TTS_PROVIDER:-edge}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      ELEVENLABS_API_KEY: ${ELEVENLABS_API_KEY:-}
+      ELEVENLABS_VOICE_ID: ${ELEVENLABS_VOICE_ID:-}
+      WAV2LIP_REPO: ${WAV2LIP_REPO:-}
+      WAV2LIP_CHECKPOINT: ${WAV2LIP_CHECKPOINT:-}
+    volumes:
+      - ./storage:/storage
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:8000
+    depends_on:
+      backend:
+        condition: service_healthy

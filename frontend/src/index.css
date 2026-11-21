@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  font-family: 'DM Sans', 'Segoe UI', sans-serif;
+  color: #eef2ed;
+  background: #101311;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 14px;
+  --bg: #101311;
+  --panel: #171b19;
+  --panel-raised: #1c211e;
+  --line: #2a312d;
+  --line-soft: #222825;
+  --text: #edf2ee;
+  --muted: #9aa49c;
+  --dim: #69736d;
+  --lime: #d3ef75;
+  --blue: #a0afff;
+  --coral: #e89075;
+  --sans: 'DM Sans', 'Segoe UI', sans-serif;
+  --display: 'Space Grotesk', 'DM Sans', sans-serif;
+  --mono: 'DM Mono', Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+html { min-width: 360px; min-height: 100%; background: var(--bg); }
+body { min-width: 360px; min-height: 100vh; margin: 0; }
+button, input, select, textarea { font: inherit; }
+button { color: inherit; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+::selection { color: #11150d; background: var(--lime); }
+#root { min-height: 100vh; }
