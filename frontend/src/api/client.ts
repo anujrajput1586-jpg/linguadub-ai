@@ -1,6 +1,6 @@
 import type { Capabilities, DashboardStats, GlossaryTerm, Language, Project, Segment } from '../types'
 
-const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
+const API_BASE = import.meta.env.VITE_API_URL ?? ''
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, init)
