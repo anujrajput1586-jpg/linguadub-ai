@@ -1,4 +1,5 @@
 import asyncio
+import mimetypes
 import re
 import uuid
 from pathlib import Path
@@ -292,4 +293,7 @@ def download_artifact(project_id: int, kind: str, db: Session = Depends(get_db))
         raise HTTPException(404, detail={"code": "DOWNLOAD_NOT_FOUND", "message": str(exc)}) from exc
     if not path.is_file():
         raise HTTPException(404, detail={"code": "DOWNLOAD_NOT_READY", "message": "This download is not ready yet."})
+    if kind == "source":
+        media_type = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+        return FileResponse(path, media_type=media_type, headers={"Content-Disposition": "inline"})
     return FileResponse(path, filename=path.name)
